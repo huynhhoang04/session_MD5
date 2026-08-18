@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    image: storex-backend:v3
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+    networks:
+      - storex-net
+
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    networks:
+      - storex-net
+
+networks:
+  storex-net:
+    driver: bridge
